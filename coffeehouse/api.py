@@ -18,6 +18,16 @@ class API(object):
         self.endpoint = endpoint
 
     def create_session(self, language = "en"):
+        """
+        Creates a new Session with the AI
+
+        :type self:
+        :param self:
+        :type language:
+        :param language: The language that this session will be based in
+        :raises:
+        :rtype:
+        """
         request_payload = {
             "api_key": self.api_key,
             "language": language
@@ -29,6 +39,17 @@ class API(object):
         return Session(json.loads(response.text)["payload"])
 
     def get_session(self, session_id):
+    
+        """
+        Gets an existing session using a SessionID
+
+        :type self:
+        :param self:
+        :type session_id:
+        :param session_id: The ID of the session to retrieve
+        :raises: CoffeeHouseError
+        :rtype: Session
+        """
         request_payload = {
             "api_key": self.api_key,
             "session_id": session_id
@@ -40,6 +61,19 @@ class API(object):
         return Session(json.loads(response.text)["payload"])
 
     def think_thought(self, session_id, input):
+    
+        """ 
+        Processes user input and returns an AI text Response
+
+        :type self:
+        :param self:
+        :type session_id:
+        :param session_id: The ID of the session to get an output from
+        :type input:
+        :param input: The user input
+        :raises: CoffeeHouseError
+        :rtype: str
+        """
         request_payload = {
             "api_key": self.api_key,
             "session_id": session_id,
