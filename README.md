@@ -4,11 +4,21 @@ This is a very simple API Wrapper for the CoffeeHouse API. Using
 This Library only supports the v2 API which is based from
 this [Documentation](https://gist.github.com/Netkas/d3617e5b5b66c7851c728d3c0073529a)
 
+<p align="center">
+  <img src="https://i.imgur.com/7yMvpGx.png" alt="CoffeeHouse Python Example">
+</p>
+
 
 ## Installation
 ```sh
 python3 setup.py build
 python3 setup.py install
+```
+
+or
+```sh
+# cd into the coffeehouse directory
+sudo -H python3 -m pip install .
 ```
 
 ## Usage
