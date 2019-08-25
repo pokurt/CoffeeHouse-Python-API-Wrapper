@@ -1,4 +1,4 @@
-class coffeehouse_error(Exception):
+class CoffeeHouseError(Exception):
     """
     Exception raised by API errors.
     The exception message is set to the server's response.
@@ -9,6 +9,6 @@ class coffeehouse_error(Exception):
     :type content: string
     """
     def __init__(self, message, status_code, content=None):
-        super(coffeehouse_error, self).__init__(message)
+        super(CoffeeHouseError, self).__init__(message)
         self.status_code = status_code
         self.content = content

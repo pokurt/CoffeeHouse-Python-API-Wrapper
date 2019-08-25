@@ -26,29 +26,16 @@ sudo -H python3 -m pip install .
 ```python
 import coffeehouse
 
-CoffeeHouse = coffeehouse.api("<API KEY>")
+api_key = "<API KEY>"  # Your key here - coffeehouse.intellivoid.info
 
-# Creating a session
-Session = CoffeeHouse.create_session("en")
-
-print("Session ID: {0}".format(Session.id))
-print("Session Available: {0}".format(str(Session.available)))
-print("Session Language: {0}".format(Session.language))
-print("Session Expires: {0}".format(str(Session.expires)))
-
-# Getting AI Output using the session
-Output = CoffeeHouse.think_thought(Session.id, "Hello!")
-print("Output: {0}".format(Output))
-```
-
-## Example chat script
-```python
-import coffeehouse
-
-Lydia = coffeehouse.api("<API KEY>")
-Session = Lydia.create_session("en")
+# Initialise client
+api_client = coffeehouse.API(api_key)
+# Create session (like a conversation with the AI)
+# Note that sessions expire 3 hours after creation (see example.py for more)
+session = api_client.create_session()
 
 while(True):
-    Output = Lydia.think_thought(Session.id, input("Input: "))
-    print("Output: {0}".format(Output))
+    # Get the output from the AI
+    output = session.think_thought(session.id, input("Input: "))
+    print("Output: {0}".format(output))
 ```
