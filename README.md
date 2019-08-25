@@ -5,7 +5,7 @@ This Library only supports the v2 API which is based from
 this [Documentation](https://gist.github.com/Netkas/d3617e5b5b66c7851c728d3c0073529a)
 
 <p align="center">
-  <img src="https://i.imgur.com/N19XyN2.png" alt="CoffeeHouse Python Example">
+  <img src="https://i.imgur.com/0uusjvh.png" alt="CoffeeHouse Python Example">
 </p>
 
 
