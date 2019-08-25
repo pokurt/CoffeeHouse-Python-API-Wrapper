@@ -1,4 +1,4 @@
-class Session(object):
+class session(object):
 
     def __init__(self, data):
         """

@@ -1,5 +1,5 @@
-from coffeehouse.api import API
-from coffeehouse.session import Session
-from coffeehouse.exception import CoffeeHouseError
+from coffeehouse.api import api
+from coffeehouse.session import session
+from coffeehouse.exception import coffeehouse_error
 
-__all__ = ['API', 'Session', 'CoffeeHouseError']
+__all__ = ['api', 'session', 'coffeehouse_error']
