@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='coffeehouse',
-    version='1.0.0',
+    version='1.0.2',
     packages=['coffeehouse'],
     package_dir={
         'coffeehouse': 'coffeehouse'
