@@ -26,7 +26,7 @@ sudo -H python3 -m pip install .
 ```python
 import coffeehouse
 
-CoffeeHouse = coffeehouse.API("<API KEY>")
+CoffeeHouse = coffeehouse.api("<API KEY>")
 
 # Creating a session
 Session = CoffeeHouse.create_session("en")
@@ -45,10 +45,10 @@ print("Output: {0}".format(Output))
 ```python
 import coffeehouse
 
-CoffeeHouse = coffeehouse.API("<API KEY>")
-Session = CoffeeHouse.create_session("en")
+Lydia = coffeehouse.api("<API KEY>")
+Session = Lydia.create_session("en")
 
 while(True):
-    Output = CoffeeHouse.think_thought(Session.id, input("Input: "))
+    Output = Lydia.think_thought(Session.id, input("Input: "))
     print("Output: {0}".format(Output))
 ```
