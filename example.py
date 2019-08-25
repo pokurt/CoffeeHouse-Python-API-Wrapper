@@ -10,5 +10,5 @@ print("Session Language: {0}".format(str(session.language)))
 print("Session Expires: {0}".format(str(session.expires)))
 
 while(True):
-    output = api_client.think_thought(session.id, input("Input: "))
+    output = session.think_thought(session.id, input("Input: "))
     print("Output: {0}".format(output))

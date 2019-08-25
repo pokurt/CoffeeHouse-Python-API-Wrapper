@@ -4,7 +4,6 @@ import json
 import requests
 
 class API(object):
-    
     """
     Generic API Client for all API Features from the v2 API
 
@@ -13,20 +12,18 @@ class API(object):
     :param endpoint: The API Endpoint to make HTTP Requests to
     :type endpoint: str
     """
-    def __init__(self, api_key, endpoint = "https://api.intellivoid.info/coffeehouse"):
+    def __init__(self, api_key, endpoint="https://api.intellivoid.info/coffeehouse"):
         self.api_key = api_key
         self.endpoint = endpoint
 
-    def create_session(self, language = "en"):
+    def create_session(self, language="en"):
         """
         Creates a new Session with the AI
 
-        :type self:
-        :param self:
-        :type language:
+        :type language: str
         :param language: The language that this session will be based in
-        :raises:
-        :rtype:
+        :raises: CoffeeHouseError
+        :rtype: Session
         """
         request_payload = {
             "api_key": self.api_key,
@@ -36,16 +33,13 @@ class API(object):
         response = requests.post("{0}/v2/CreateSession".format(self.endpoint), request_payload)
         if(response.status_code != 200):
                 raise CoffeeHouseError(response.text, response.status_code)
-        return Session(json.loads(response.text)["payload"])
+        return Session(json.loads(response.text)["payload"], self)
 
     def get_session(self, session_id):
-    
         """
-        Gets an existing session using a SessionID
+        Gets an existing session using a Session ID
 
-        :type self:
-        :param self:
-        :type session_id:
+        :type session_id: int
         :param session_id: The ID of the session to retrieve
         :raises: CoffeeHouseError
         :rtype: Session
@@ -56,21 +50,16 @@ class API(object):
         }
 
         response = requests.post("{0}/v2/GetSession".format(self.endpoint), request_payload)
-        if(response.status_code != 200):
-                raise CoffeeHouseError(response.text, response.status_code)
-        return Session(json.loads(response.text)["payload"])
+        if response.status_code != 200:  # TODO: Use HTTP constants rather than hardcoding 200, parse error code to more specific exception
+            raise CoffeeHouseError(response.text, response.status_code)
+        return Session(json.loads(response.text)["payload"], self)
 
-    def think_thought(self, session_id, input):
-    
-        """ 
+    def think_thought(self, session_id, text):
+        """
         Processes user input and returns an AI text Response
 
-        :type self:
-        :param self:
-        :type session_id:
-        :param session_id: The ID of the session to get an output from
-        :type input:
-        :param input: The user input
+        :type text: str
+        :param text: The user input
         :raises: CoffeeHouseError
         :rtype: str
         """
@@ -81,6 +70,6 @@ class API(object):
         }
 
         response = requests.post("{0}/v2/ThinkThought".format(self.endpoint), request_payload)
-        if(response.status_code != 200):
-                raise CoffeeHouseError(response.text, response.status_code)
+        if response.status_code != 200:
+            raise CoffeeHouseError(response.text, response.status_code)
         return json.loads(response.text)["payload"]["output"]
