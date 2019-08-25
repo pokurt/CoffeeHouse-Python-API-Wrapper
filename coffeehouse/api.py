@@ -1,9 +1,9 @@
-from coffeehouse.exception import coffeehouse_error
-from coffeehouse.session import session
+from coffeehouse.exception import CoffeeHouseError
+from coffeehouse.session import Session
 import json
 import requests
 
-class api(object):
+class API(object):
     
     """
     Generic API Client for all API Features from the v2 API
@@ -35,8 +35,8 @@ class api(object):
 
         response = requests.post("{0}/v2/CreateSession".format(self.endpoint), request_payload)
         if(response.status_code != 200):
-                raise coffeehouse_error(response.text, response.status_code)
-        return session(json.loads(response.text)["payload"])
+                raise CoffeeHouseError(response.text, response.status_code)
+        return Session(json.loads(response.text)["payload"])
 
     def get_session(self, session_id):
     
@@ -57,8 +57,8 @@ class api(object):
 
         response = requests.post("{0}/v2/GetSession".format(self.endpoint), request_payload)
         if(response.status_code != 200):
-                raise coffeehouse_error(response.text, response.status_code)
-        return session(json.loads(response.text)["payload"])
+                raise CoffeeHouseError(response.text, response.status_code)
+        return Session(json.loads(response.text)["payload"])
 
     def think_thought(self, session_id, input):
     
@@ -82,5 +82,5 @@ class api(object):
 
         response = requests.post("{0}/v2/ThinkThought".format(self.endpoint), request_payload)
         if(response.status_code != 200):
-                raise coffeehouse_error(response.text, response.status_code)
+                raise CoffeeHouseError(response.text, response.status_code)
         return json.loads(response.text)["payload"]["output"]
