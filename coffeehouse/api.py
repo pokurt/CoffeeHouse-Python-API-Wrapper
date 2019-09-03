@@ -68,7 +68,7 @@ class API(object):
         request_payload = {
             "api_key": self.api_key,
             "session_id": session_id,
-            "input": input
+            "input": text
         }
 
         response = requests.post("{0}/v2/ThinkThought".format(self.endpoint),
