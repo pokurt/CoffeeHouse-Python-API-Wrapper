@@ -8,6 +8,7 @@ setup(
     version='1.0.5',
     description='Official CoffeeHouse API Wrapper for Python',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     packages=['coffeehouse'],
     package_dir={
         'coffeehouse': 'coffeehouse'
