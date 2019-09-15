@@ -3,6 +3,7 @@
 .idea
 .coverage
 .vscode
+*.egg-info
 MANIFEST
 docs/build
 dist/
