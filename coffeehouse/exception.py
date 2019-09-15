@@ -16,7 +16,7 @@ class CoffeeHouseError(Exception):
         self.content = content
         try:
             self.message = json.loads(content).get("message", None)
-        except json.JsonDecodeError:
+        except json.decoder.JSONDecodeError:
             self.message = None
         super().__init__(self.message or content)
 
