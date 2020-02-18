@@ -17,7 +17,7 @@ class CoffeeHouseError(Exception):
         try:
             self.message = json.loads(content).get("message", None)
         except json.decoder.JSONDecodeError:
-            self.message = None
+            self.message = "Unknown"
         super().__init__(self.message or content)
 
     @staticmethod
