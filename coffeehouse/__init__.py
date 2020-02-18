@@ -1,6 +1,4 @@
-from Lydia import API as Lydia
-from LydiaSession import Session as LydiaSession
-from exception import CoffeeHouseError
+from coffeehouse.lydia import *
 
-__all__ = ['Lydia', 'LydiaSession', 'CoffeeHouseError']
+__all__ = ['CoffeeHouse', 'lydia', 'exception']
 

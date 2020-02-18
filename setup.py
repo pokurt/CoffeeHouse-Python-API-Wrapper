@@ -13,7 +13,7 @@ setup(
     package_dir={
         'coffeehouse': 'coffeehouse'
     },
-    author='Zi Xing',
+    author='Intellivoid',
     author_email='netkas@intellivoid.info',
     url='https://coffeehouse.intellivoid.info/',
     install_requires=[

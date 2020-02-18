@@ -1,5 +1,5 @@
-from exception import CoffeeHouseError
-from LydiaSession import Session
+from coffeehouse.exception import CoffeeHouseError
+from coffeehouse.lydia.session import Session
 
 import json
 import requests
@@ -14,8 +14,7 @@ class API(object):
     :param endpoint: The API Endpoint to make HTTP Requests to
     :type endpoint: str
     """
-    def __init__(self, api_key,
-                 endpoint="https://api.intellivoid.info/coffeehouse"):
+    def __init__(self, api_key, endpoint="https://api.intellivoid.info/coffeehouse"):
         self.api_key = api_key
         self.endpoint = endpoint
 
