@@ -1,4 +1,4 @@
-from setuptools import setup, Extension
+from setuptools import setup
 
 with open("README.md", "r") as file:
     long_description = file.read()
