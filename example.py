@@ -1,7 +1,7 @@
 import coffeehouse
 
 api_key = "<API KEY>"
-api_client = coffeehouse.API(api_key)
+api_client = coffeehouse.api(api_key)
 
 session = api_client.create_session()
 print("Session ID: {0}".format(session.id))

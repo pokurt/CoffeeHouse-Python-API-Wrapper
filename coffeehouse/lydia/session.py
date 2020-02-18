@@ -20,3 +20,11 @@ class Session(object):
         :rtype: str
         """
         return self._client.think_thought(self.id, text)
+
+    def __str__(self):
+        """
+        Returns the session ID
+
+        :rtype: str
+        """
+        return self.id
