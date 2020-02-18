@@ -1,5 +1,6 @@
-from coffeehouse.exception import CoffeeHouseError
-from coffeehouse.session import Session
+from exception import CoffeeHouseError
+from LydiaSession import Session
+
 import json
 import requests
 
