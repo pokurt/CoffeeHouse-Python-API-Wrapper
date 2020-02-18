@@ -4,6 +4,7 @@ class Session(object):
         """
         AI Session Object
         """
+
         self._client = client
         self.id = data['session_id']
         self.language = data['language']
@@ -17,14 +18,18 @@ class Session(object):
         :type text: str
         :param text: The user input
         :raises: CoffeeHouseError
+        :returns: The JSON response from the server
         :rtype: str
         """
+
         return self._client.think_thought(self.id, text)
 
     def __str__(self):
         """
-        Returns the session ID
+        Returns ``str(self)``
 
+        :returns: The session id
         :rtype: str
         """
+
         return self.id
