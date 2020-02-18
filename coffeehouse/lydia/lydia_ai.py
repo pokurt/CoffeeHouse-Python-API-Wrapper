@@ -14,6 +14,7 @@ class LydiaAI:
 
         :type coffeehouse_api: API
         """
+
         self.api = coffeehouse_api
 
     def create_session(self, language="en"):
@@ -23,8 +24,10 @@ class LydiaAI:
         :type language: str
         :param language: The language that this session will be based in
         :raises: CoffeeHouseError
+        :returns: A ``Session`` object
         :rtype: Session
         """
+
         request_payload = {
             "access_key": self.api.access_key,
             "target_language": language
@@ -41,8 +44,10 @@ class LydiaAI:
         :type session_id: int
         :param session_id: The ID of the session to retrieve
         :raises: CoffeeHouseError
+        :returns: A ``Session`` object
         :rtype: Session
         """
+
         request_payload = {
             "access_key": self.api.access_key,
             "session_id": session_id
@@ -59,8 +64,10 @@ class LydiaAI:
         :type text: str
         :param text: The user input
         :raises: CoffeeHouseError
+        :returns: The json payload of the response
         :rtype: str
         """
+
         request_payload = {
             "access_key": self.api.access_key,
             "session_id": session_id,
