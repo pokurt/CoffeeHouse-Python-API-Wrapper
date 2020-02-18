@@ -1,22 +1,20 @@
 from coffeehouse.exception import CoffeeHouseError
 from coffeehouse.lydia.session import Session
+from coffeehouse.api import API
 
 import json
 import requests
 
 
-class API(object):
-    """
-    Generic API Client for all API Features from the v2 API
+class LydiaAI:
 
-    :param api_key: Your API Key
-    :type api_key: str
-    :param endpoint: The API Endpoint to make HTTP Requests to
-    :type endpoint: str
-    """
-    def __init__(self, api_key, endpoint="https://api.intellivoid.info/coffeehouse"):
-        self.api_key = api_key
-        self.endpoint = endpoint
+    def __init__(self, coffeehouse_api):
+        """
+        Public constructor for Lydia
+
+        :type coffeehouse_api: API
+        """
+        self.api = coffeehouse_api
 
     def create_session(self, language="en"):
         """
@@ -28,12 +26,11 @@ class API(object):
         :rtype: Session
         """
         request_payload = {
-            "api_key": self.api_key,
-            "language": language
+            "access_key": self.api.access_key,
+            "target_language": language
         }
 
-        response = requests.post("{0}/v2/CreateSession"
-                                 .format(self.endpoint), request_payload)
+        response = requests.post("{0}/v1/lydia/session/create".format(self.api.endpoint), request_payload)
         CoffeeHouseError.raise_for_status(response.status_code, response.text)
         return Session(json.loads(response.text)["payload"], self)
 
@@ -47,12 +44,11 @@ class API(object):
         :rtype: Session
         """
         request_payload = {
-            "api_key": self.api_key,
+            "access_key": self.api.access_key,
             "session_id": session_id
         }
 
-        response = requests.post("{0}/v2/GetSession".format(self.endpoint),
-                                 request_payload)
+        response = requests.post("{0}/v1/lydia/session/get".format(self.api.endpoint), request_payload)
         CoffeeHouseError.raise_for_status(response.status_code, response.text)
         return Session(json.loads(response.text)["payload"], self)
 
@@ -66,12 +62,12 @@ class API(object):
         :rtype: str
         """
         request_payload = {
-            "api_key": self.api_key,
+            "access_key": self.api.access_key,
             "session_id": session_id,
             "input": text
         }
 
-        response = requests.post("{0}/v2/ThinkThought".format(self.endpoint),
+        response = requests.post("{0}/v1/lydia/session/think".format(self.api.endpoint),
                                  request_payload)
         CoffeeHouseError.raise_for_status(response.status_code, response.text)
         return json.loads(response.text)["payload"]["output"]

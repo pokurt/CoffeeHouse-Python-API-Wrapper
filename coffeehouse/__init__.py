@@ -1,4 +1,6 @@
 from coffeehouse.lydia import *
+from coffeehouse.api import API
+from coffeehouse.exception import CoffeeHouseError
 
 __all__ = ['lydia', 'exception']
 __version__ = "2.0"

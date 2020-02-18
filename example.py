@@ -1,9 +1,12 @@
-import coffeehouse
+from coffeehouse.lydia import LydiaAI
+from coffeehouse.api import API
 
 api_key = "<API KEY>"
-api_client = coffeehouse.api(api_key)
+coffeehouse_api = API(api_key, "http://localhost:5002/coffeehouse")
 
-session = api_client.create_session()
+lydia = LydiaAI(coffeehouse_api)
+
+session = lydia.create_session()
 print("Session ID: {0}".format(session.id))
 print("Session Available: {0}".format(str(session.available)))
 print("Session Language: {0}".format(str(session.language)))
