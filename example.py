@@ -12,7 +12,7 @@ print("Session Available: {0}".format(str(session.available)))
 print("Session Language: {0}".format(str(session.language)))
 print("Session Expires: {0}".format(str(session.expires)))
 
-while(True):
+while True:
     output = session.think_thought(input("Input: "))
     print("Output: {0}".format(output))
 

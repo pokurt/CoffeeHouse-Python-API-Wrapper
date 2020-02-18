@@ -61,6 +61,7 @@ class LydiaAI:
         """
         Processes user input and returns an AI text Response
 
+        :param session_id:
         :type text: str
         :param text: The user input
         :raises: CoffeeHouseError
