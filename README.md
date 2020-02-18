@@ -1,41 +1,47 @@
 # CoffeeHouse API Wrapper for Python
 
 This is a very simple API Wrapper for the CoffeeHouse API. Using
-This Library only supports the v2 API which is based from
-this [Documentation](https://gist.github.com/Netkas/d3617e5b5b66c7851c728d3c0073529a)
+This Library only supports the V1IVA2.0 API which is based from
+this [Documentation](https://gist.github.com/Netkas/e8977b26f482ca40911a949df7dd286f)
 
 <p align="center">
-  <img src="https://i.imgur.com/0uusjvh.png" alt="CoffeeHouse Python Example">
+  <img src="https://i.imgur.com/DjuRyhZ.jpg" alt="CoffeeHouse Python Example">
 </p>
 
 
 ## Installation
 ```sh
-python3 setup.py build
-python3 setup.py install
+pip install coffeehouse
 ```
 
 or
 ```sh
-# cd into the coffeehouse directory
-sudo -H python3 -m pip install .
+python setup.py build
+python setup.py install
 ```
 
-## Usage
+
+## Lydia Example
 
 ```python
-import coffeehouse
+from coffeehouse.lydia import LydiaAI
+from coffeehouse.api import API
 
-api_key = "<API KEY>"  # Your key here - coffeehouse.intellivoid.info
+# Create the CoffeeHouse API instance
+coffeehouse_api = API("<API KEY>")
 
-# Initialise client
-api_client = coffeehouse.API(api_key)
-# Create session (like a conversation with the AI)
-# Note that sessions expire 3 hours after creation (see example.py for more)
-session = api_client.create_session()
+# Create Lydia instance
+lydia = LydiaAI(coffeehouse_api)
 
-while(True):
-    # Get the output from the AI
-    output = session.think_thought(session.id, input("Input: "))
+# Create a new chat session (Like a conversation)
+session = lydia.create_session()
+print("Session ID: {0}".format(session.id))
+print("Session Available: {0}".format(str(session.available)))
+print("Session Language: {0}".format(str(session.language)))
+print("Session Expires: {0}".format(str(session.expires)))
+
+# Talk to the bot!
+while True:
+    output = session.think_thought(input("Input: "))
     print("Output: {0}".format(output))
 ```
