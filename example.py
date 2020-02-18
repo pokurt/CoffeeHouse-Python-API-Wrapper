@@ -2,7 +2,7 @@ from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
 
 api_key = "<API KEY>"
-coffeehouse_api = API(api_key, "http://localhost:5002/coffeehouse")
+coffeehouse_api = API(api_key)
 
 lydia = LydiaAI(coffeehouse_api)
 
