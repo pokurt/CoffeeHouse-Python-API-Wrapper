@@ -35,13 +35,13 @@ lydia = LydiaAI(coffeehouse_api)
 
 # Create a new chat session (Like a conversation)
 session = lydia.create_session()
-print("Session ID: {0}".format(session.id))
-print("Session Available: {0}".format(str(session.available)))
-print("Session Language: {0}".format(str(session.language)))
-print("Session Expires: {0}".format(str(session.expires)))
+print(f"Session ID: {session.id}")
+print(f"Session Available: {session.available}")
+print(f"Session Language: {session.language}")
+print(f"Session Expires: {session.expires}")
 
 # Talk to the bot!
 while True:
     output = session.think_thought(input("Input: "))
-    print("Output: {0}".format(output))
+    print(f"Output: {output}")
 ```
