@@ -6,16 +6,15 @@ import json
 import requests
 
 
-class LydiaAI:
-
-    def __init__(self, coffeehouse_api):
+class LydiaAI(API):
+    def __init__(self, *args, **kwargs):
         """
         Public constructor for Lydia
-
-        :type coffeehouse_api: API
+        :param access_key:
+        :param endpoint:
         """
 
-        self.api = coffeehouse_api
+        super().__init__(*args, **kwargs)
 
     def create_session(self, language="en"):
         """
@@ -29,11 +28,11 @@ class LydiaAI:
         """
 
         request_payload = {
-            "access_key": self.api.access_key,
+            "access_key": self.access_key,
             "target_language": language
         }
 
-        response = requests.post("{0}/v1/lydia/session/create".format(self.api.endpoint), request_payload)
+        response = requests.post("{0}/v1/lydia/session/create".format(self.endpoint), request_payload)
         CoffeeHouseError.raise_for_status(response.status_code, response.text)
         return Session(json.loads(response.text)["payload"], self)
 
@@ -49,11 +48,11 @@ class LydiaAI:
         """
 
         request_payload = {
-            "access_key": self.api.access_key,
+            "access_key": self.access_key,
             "session_id": session_id
         }
 
-        response = requests.post("{0}/v1/lydia/session/get".format(self.api.endpoint), request_payload)
+        response = requests.post("{0}/v1/lydia/session/get".format(self.endpoint), request_payload)
         CoffeeHouseError.raise_for_status(response.status_code, response.text)
         return Session(json.loads(response.text)["payload"], self)
 
@@ -70,12 +69,12 @@ class LydiaAI:
         """
 
         request_payload = {
-            "access_key": self.api.access_key,
+            "access_key": self.access_key,
             "session_id": session_id,
             "input": text
         }
 
-        response = requests.post("{0}/v1/lydia/session/think".format(self.api.endpoint),
+        response = requests.post("{0}/v1/lydia/session/think".format(self.endpoint),
                                  request_payload)
         CoffeeHouseError.raise_for_status(response.status_code, response.text)
         return json.loads(response.text)["payload"]["output"]

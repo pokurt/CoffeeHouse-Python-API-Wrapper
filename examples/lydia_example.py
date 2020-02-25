@@ -1,12 +1,10 @@
 from coffeehouse.lydia import LydiaAI
-from coffeehouse.api import API
 
 # Create the CoffeeHouse API instance
-api_key = "<API KEY>"
-coffeehouse_api = API(api_key)
+api_key = input("API Key: ")
 
 # Create Lydia instance
-lydia = LydiaAI(coffeehouse_api)
+lydia = LydiaAI(api_key)
 
 # Create a new chat session (Like a conversation)
 session = lydia.create_session()

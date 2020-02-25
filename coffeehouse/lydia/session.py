@@ -1,5 +1,4 @@
 class Session(object):
-
     def __init__(self, data, client):
         """
         AI Session Object
@@ -26,7 +25,7 @@ class Session(object):
 
     def __str__(self):
         """
-        Returns ``str(self)``
+        Returns an identifier uniquely specifying this session
 
         :returns: The session id
         :rtype: str
