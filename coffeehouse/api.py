@@ -8,5 +8,9 @@ class API(object):
         :param endpoint:
         :return:
         """
-        self.access_key = access_key
-        self.endpoint = endpoint
+        if isinstance(access_key, API):
+            self.access_key = access_key.access_key
+            self.endpoint = access_key.endpoint
+        else:
+            self.access_key = access_key
+            self.endpoint = endpoint
