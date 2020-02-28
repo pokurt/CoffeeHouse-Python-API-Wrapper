@@ -11,6 +11,7 @@ class CoffeeHouseError(Exception):
     :param message: Response content returned by the server
     :type message: str
     """
+    
     def __init__(self, status_code, content):
         self.status_code = status_code
         self.content = content
@@ -29,6 +30,7 @@ class CoffeeHouseError(Exception):
         :type content: str
         :rtype dict
         """
+        
         try:
             response = json.loads(content)
         except json.decoder.JSONDecodeError:
