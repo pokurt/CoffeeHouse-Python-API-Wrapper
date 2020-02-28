@@ -14,3 +14,7 @@ class API(object):
         else:
             self.access_key = access_key
             self.endpoint = endpoint
+
+    def _send(self, path, payload):
+        response = requests.post("{}/{}".format(self.endpoint, path), payload)
+        return CoffeeHouseError.parse_and_raise(response.status_code, response.text)
