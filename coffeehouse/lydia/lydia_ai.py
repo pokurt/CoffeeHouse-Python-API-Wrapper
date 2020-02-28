@@ -23,18 +23,12 @@ class LydiaAI(API):
         :type language: str
         :param language: The language that this session will be based in
         :raises: CoffeeHouseError
-        :returns: A ``Session`` object
+        :returns: The newly created session
         :rtype: Session
         """
 
-        request_payload = {
-            "access_key": self.access_key,
-            "target_language": language
-        }
-
-        response = requests.post("{0}/v1/lydia/session/create".format(self.endpoint), request_payload)
-        CoffeeHouseError.raise_for_status(response.status_code, response.text)
-        return Session(json.loads(response.text)["payload"], self)
+        return Session(self._send("v1/lydia/session/create",
+                                  target_language=language), self)
 
     def get_session(self, session_id):
         """
@@ -43,18 +37,12 @@ class LydiaAI(API):
         :type session_id: int
         :param session_id: The ID of the session to retrieve
         :raises: CoffeeHouseError
-        :returns: A ``Session`` object
+        :returns: The already existing session
         :rtype: Session
         """
 
-        request_payload = {
-            "access_key": self.access_key,
-            "session_id": session_id
-        }
-
-        response = requests.post("{0}/v1/lydia/session/get".format(self.endpoint), request_payload)
-        CoffeeHouseError.raise_for_status(response.status_code, response.text)
-        return Session(json.loads(response.text)["payload"], self)
+        return Session(self._send("v1/lydia/session/get",
+                                  session_id=session_id), self)
 
     def think_thought(self, session_id, text):
         """
@@ -67,14 +55,7 @@ class LydiaAI(API):
         :returns: The json payload of the response
         :rtype: str
         """
-
-        request_payload = {
-            "access_key": self.access_key,
-            "session_id": session_id,
-            "input": text
-        }
-
-        response = requests.post("{0}/v1/lydia/session/think".format(self.endpoint),
-                                 request_payload)
-        CoffeeHouseError.raise_for_status(response.status_code, response.text)
-        return json.loads(response.text)["payload"]["output"]
+        
+        return self._send("v1/lydia/session/think",
+                          session_id=session_id,
+                          input=text)["payload"]["output"]
