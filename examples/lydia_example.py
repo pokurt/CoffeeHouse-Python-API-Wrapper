@@ -1,4 +1,4 @@
-from coffeehouse.lydia import LydiaAI
+from coffeehouse import LydiaAI
 
 # Create the CoffeeHouse API instance
 api_key = input("API Key: ")
