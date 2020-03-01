@@ -1,6 +1,9 @@
 import json
 
 
+__all__ = ["CoffeeHouseError"]
+
+
 class CoffeeHouseError(Exception):
     """
     Exception raised by API errors.
@@ -11,7 +14,7 @@ class CoffeeHouseError(Exception):
     :param message: Response content returned by the server
     :type message: str
     """
-    
+
     def __init__(self, status_code, content):
         self.status_code = status_code
         self.content = content
@@ -23,14 +26,14 @@ class CoffeeHouseError(Exception):
         """
         Raise an exception if applicable, otherwise return the
         response of the method
-        
+
         :param status_code: Status code returned by the server
         :type status_code: int
         :param content: Response content returned by the server
         :type content: str
         :rtype dict
         """
-        
+
         try:
             response = json.loads(content)
         except json.decoder.JSONDecodeError:
@@ -39,7 +42,6 @@ class CoffeeHouseError(Exception):
             raise _mapping.get(status_code,
                                CoffeeHouseError)(status_code, response)
         return response
-        
 
 
 class ApiSuspendedError(CoffeeHouseError):
@@ -63,9 +65,9 @@ class SessionNotFoundError(CoffeeHouseError):
 
 
 _mapping = {
-            400: SessionInvalidError,
-            401: InvalidApiKeyError,
-            403: ApiSuspendedError,
-            404: SessionNotFoundError,
-            503: AIError
-           }
+    400: SessionInvalidError,
+    401: InvalidApiKeyError,
+    403: ApiSuspendedError,
+    404: SessionNotFoundError,
+    503: AIError
+}

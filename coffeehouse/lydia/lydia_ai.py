@@ -1,9 +1,8 @@
-from coffeehouse.exception import CoffeeHouseError
-from coffeehouse.lydia.session import Session
-from coffeehouse.api import API
+from .session import LydiaSession
+from ..api import API
 
-import json
-import requests
+
+__all__ = ["LydiaAI"]
 
 
 class LydiaAI(API):
@@ -18,31 +17,31 @@ class LydiaAI(API):
 
     def create_session(self, language="en"):
         """
-        Creates a new Session with the AI
+        Creates a new LydiaSession with the AI
 
         :type language: str
         :param language: The language that this session will be based in
         :raises: CoffeeHouseError
         :returns: The newly created session
-        :rtype: Session
+        :rtype: LydiaSession
         """
 
-        return Session(self._send("v1/lydia/session/create",
-                                  target_language=language), self)
+        return LydiaSession(self._send("v1/lydia/session/create",
+                                       target_language=language), self)
 
     def get_session(self, session_id):
         """
-        Gets an existing session using a Session ID
+        Gets an existing session using a LydiaSession ID
 
         :type session_id: int
         :param session_id: The ID of the session to retrieve
         :raises: CoffeeHouseError
         :returns: The already existing session
-        :rtype: Session
+        :rtype: LydiaSession
         """
 
-        return Session(self._send("v1/lydia/session/get",
-                                  session_id=session_id), self)
+        return LydiaSession(self._send("v1/lydia/session/get",
+                                       session_id=session_id), self)
 
     def think_thought(self, session_id, text):
         """
@@ -55,7 +54,7 @@ class LydiaAI(API):
         :returns: The json payload of the response
         :rtype: str
         """
-        
+
         return self._send("v1/lydia/session/think",
                           session_id=session_id,
-                          input=text)["payload"]["output"]
+                          input=text)["output"]

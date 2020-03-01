@@ -1,14 +1,17 @@
-class Session(object):
+__all__ = ["LydiaSession", "Session"]
+
+
+class LydiaSession:
     def __init__(self, data, client):
         """
         AI Session Object
         """
 
         self._client = client
-        self.id = data['session_id']
-        self.language = data['language']
-        self.available = data['available']
-        self.expires = data['expires']
+        self.id = data["session_id"]
+        self.language = data["language"]
+        self.available = data["available"]
+        self.expires = data["expires"]
 
     def think_thought(self, text):
         """
@@ -32,3 +35,6 @@ class Session(object):
         """
 
         return self.id
+
+
+Session = LydiaSession  # For compatibility
