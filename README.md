@@ -1,7 +1,7 @@
 # CoffeeHouse API Wrapper for Python
 
 This is a very simple API Wrapper for the CoffeeHouse API. Using
-This Library only supports the V1IVA2.0 Lydia API which is based from
+This Library only supports the V1IVA2.0 CoffeeHouse API which is based from
 this [Documentation](https://gist.github.com/Netkas/e8977b26f482ca40911a949df7dd286f)
 
 
