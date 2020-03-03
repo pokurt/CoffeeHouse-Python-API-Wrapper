@@ -1,12 +1,8 @@
 # CoffeeHouse API Wrapper for Python
 
 This is a very simple API Wrapper for the CoffeeHouse API. Using
-This Library only supports the V1IVA2.0 API which is based from
+This Library only supports the V1IVA2.0 CoffeeHouse API which is based from
 this [Documentation](https://gist.github.com/Netkas/e8977b26f482ca40911a949df7dd286f)
-
-<p align="center">
-  <img src="https://i.imgur.com/DjuRyhZ.jpg" alt="CoffeeHouse Python Example">
-</p>
 
 
 ## Installation
@@ -25,13 +21,12 @@ python setup.py install
 
 ```python
 from coffeehouse.lydia import LydiaAI
-from coffeehouse.api import API
 
 # Create the CoffeeHouse API instance
-coffeehouse_api = API("<API KEY>")
+api_key = input("API Key: ")
 
 # Create Lydia instance
-lydia = LydiaAI(coffeehouse_api)
+lydia = LydiaAI(api_key)
 
 # Create a new chat session (Like a conversation)
 session = lydia.create_session()
@@ -44,4 +39,13 @@ print("Session Expires: {0}".format(str(session.expires)))
 while True:
     output = session.think_thought(input("Input: "))
     print("Output: {0}".format(output))
+
+# In the case you want to save the Session ID to reuse the session
+# Use lydia to invoke think_thought instead, for example;
+#
+# while(True):
+#     output = lydia.think_thought(session.id, input("Input: "))
+#     print("Output: {0}".format(output))
+#
+# This is the same effect as above but uses the lydia instance directly.
 ```

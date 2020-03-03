@@ -1,61 +1,47 @@
-from coffeehouse.exception import CoffeeHouseError
-from coffeehouse.lydia.session import Session
-from coffeehouse.api import API
-
-import json
-import requests
+from .session import LydiaSession
+from ..api import API
 
 
-class LydiaAI:
+__all__ = ["LydiaAI"]
 
-    def __init__(self, coffeehouse_api):
+
+class LydiaAI(API):
+    def __init__(self, *args, **kwargs):
         """
         Public constructor for Lydia
-
-        :type coffeehouse_api: API
+        :param access_key:
+        :param endpoint:
         """
 
-        self.api = coffeehouse_api
+        super().__init__(*args, **kwargs)
 
     def create_session(self, language="en"):
         """
-        Creates a new Session with the AI
+        Creates a new LydiaSession with the AI
 
         :type language: str
         :param language: The language that this session will be based in
         :raises: CoffeeHouseError
-        :returns: A ``Session`` object
-        :rtype: Session
+        :returns: The newly created session
+        :rtype: LydiaSession
         """
 
-        request_payload = {
-            "access_key": self.api.access_key,
-            "target_language": language
-        }
-
-        response = requests.post("{0}/v1/lydia/session/create".format(self.api.endpoint), request_payload)
-        CoffeeHouseError.raise_for_status(response.status_code, response.text)
-        return Session(json.loads(response.text)["payload"], self)
+        return LydiaSession(self._send("v1/lydia/session/create",
+                                       target_language=language), self)
 
     def get_session(self, session_id):
         """
-        Gets an existing session using a Session ID
+        Gets an existing session using a LydiaSession ID
 
         :type session_id: int
         :param session_id: The ID of the session to retrieve
         :raises: CoffeeHouseError
-        :returns: A ``Session`` object
-        :rtype: Session
+        :returns: The already existing session
+        :rtype: LydiaSession
         """
 
-        request_payload = {
-            "access_key": self.api.access_key,
-            "session_id": session_id
-        }
-
-        response = requests.post("{0}/v1/lydia/session/get".format(self.api.endpoint), request_payload)
-        CoffeeHouseError.raise_for_status(response.status_code, response.text)
-        return Session(json.loads(response.text)["payload"], self)
+        return LydiaSession(self._send("v1/lydia/session/get",
+                                       session_id=session_id), self)
 
     def think_thought(self, session_id, text):
         """
@@ -69,13 +55,6 @@ class LydiaAI:
         :rtype: str
         """
 
-        request_payload = {
-            "access_key": self.api.access_key,
-            "session_id": session_id,
-            "input": text
-        }
-
-        response = requests.post("{0}/v1/lydia/session/think".format(self.api.endpoint),
-                                 request_payload)
-        CoffeeHouseError.raise_for_status(response.status_code, response.text)
-        return json.loads(response.text)["payload"]["output"]
+        return self._send("v1/lydia/session/think",
+                          session_id=session_id,
+                          input=text)["output"]
