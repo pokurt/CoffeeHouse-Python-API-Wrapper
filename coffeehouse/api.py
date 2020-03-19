@@ -17,7 +17,7 @@ class API(object):
     """
 
     def __init__(self, access_key,
-                 endpoint="https://api.intellivoid.info/coffeehouse"):
+                 endpoint="https://api.intellivoid.net/coffeehouse"):
         """
         Public base constructor for CoffeeHouse API
         It can be instantiated by itself as a holder for the API key,
