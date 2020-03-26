@@ -14,8 +14,8 @@ setup(
         'coffeehouse': 'coffeehouse'
     },
     author='Intellivoid Technologies',
-    author_email='netkas@intellivoid.info',
-    url='https://coffeehouse.intellivoid.info/',
+    author_email='netkas@intellivoid.net',
+    url='https://coffeehouse.intellivoid.net/',
     install_requires=[
         'requests>=2.3.0'
     ]
