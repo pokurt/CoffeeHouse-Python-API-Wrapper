@@ -45,7 +45,7 @@ class CoffeeHouseError(Exception):
             raise CoffeeHouseError(status_code, None, request_id)
         if status_code != 200:
             raise _mapping.get(status_code,
-                               CoffeeHouseError)(status_code, response)
+                               CoffeeHouseError)(status_code, response, request_id)
         return response
 
 
