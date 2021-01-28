@@ -54,4 +54,4 @@ class API(object):
             # V1 API
             return result["payload"]
         # V2 API
-        return result["result"]
+        return result["results"]
