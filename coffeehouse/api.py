@@ -1,5 +1,4 @@
 from .exception import CoffeeHouseError
-
 import requests
 
 
@@ -8,7 +7,7 @@ __all__ = ["API"]
 
 class API(object):
     """
-    Base class for all CoffeeHouse services
+    Base class for all CoffeeHouse services.
     It can be instantiated by itself as a holder for the API key,
     or it can be subclassed by CoffeeHouse services
 
@@ -48,6 +47,11 @@ class API(object):
         request_id = None
         if "x-request-id" in response.headers:
             request_id = response.headers["x-request-id"]
-        return CoffeeHouseError.parse_and_raise(response.status_code,
-                                                response.text,
-                                                request_id)["payload"]
+        result = CoffeeHouseError.parse_and_raise(response.status_code,
+                                                  response.text,
+                                                  request_id)
+        if "payload" in result:
+            # V1 API
+            return result["payload"]
+        # V2 API
+        return result["result"]
