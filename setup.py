@@ -5,7 +5,7 @@ with open("README.md", "r") as file:
 
 setup(
     name='coffeehouse',
-    version='2.2.2',
+    version='2.2.3',
     description='Official CoffeeHouse API Wrapper for Python',
     long_description=long_description,
     long_description_content_type="text/markdown",
