@@ -43,13 +43,21 @@ class API(object):
         """
         if access_key:
             payload["access_key"] = self.access_key
-        response = requests.post("{}/{}".format(self.endpoint, path), payload)
+        response = requests.post(
+            "{}/{}".format(
+                self.endpoint,
+                path
+            ),
+            payload
+        )
         request_id = None
         if "x-request-id" in response.headers:
             request_id = response.headers["x-request-id"]
-        result = CoffeeHouseError.parse_and_raise(response.status_code,
-                                                  response.text,
-                                                  request_id)
+        result = CoffeeHouseError.parse_and_raise(
+            response.status_code,
+            response.text,
+            request_id
+        )
         if "payload" in result:
             # V1 API
             return result["payload"]
