@@ -11,7 +11,7 @@ class API(object):
     It can be instantiated by itself as a holder for the API key,
     or it can be subclassed by CoffeeHouse services
 
-    :param access_key: Access key from coffeehouse.intellivoid.info
+    :param access_key: Access key from coffeehouse.intellivoid.net
     :param endpoint: Base URL for all requests, without the trailing slash
     """
 
@@ -22,7 +22,7 @@ class API(object):
         It can be instantiated by itself as a holder for the API key,
         or it can be subclassed by CoffeeHouse services
 
-        :param access_key: Access key from coffeehouse.intellivoid.info
+        :param access_key: Access key from coffeehouse.intellivoid.net
         :param endpoint: Base URL for all requests, without the trailing slash
         """
         if isinstance(access_key, API):
@@ -43,13 +43,16 @@ class API(object):
         """
         if access_key:
             payload["access_key"] = self.access_key
-        response = requests.post(
-            "{}/{}".format(
-                self.endpoint,
-                path
-            ),
-            payload
-        )
+        try:
+            response = requests.post(
+                "{}/{}".format(
+                    self.endpoint,
+                    path
+                ),
+                payload
+            )
+        except requests.exceptions.ConnectionError:
+            raise CoffeeHouseError(-1, None, None)
         request_id = None
         if "x-request-id" in response.headers:
             request_id = response.headers["x-request-id"]

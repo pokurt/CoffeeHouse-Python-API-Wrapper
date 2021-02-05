@@ -43,7 +43,7 @@ class CoffeeHouseError(Exception):
             response = json.loads(content)
         except json.decoder.JSONDecodeError:
             raise CoffeeHouseError(status_code, None, request_id)
-        if status_code == 200:
+        if status_code != 200:
             raise _mapping.get(
                 status_code,
                 CoffeeHouseError
