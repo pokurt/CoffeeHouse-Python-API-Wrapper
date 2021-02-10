@@ -1,4 +1,5 @@
 from coffeehouse import LydiaAI
+from datetime import datetime
 
 # Create the CoffeeHouse API instance
 api_key = input("API Key: ")
@@ -7,11 +8,11 @@ api_key = input("API Key: ")
 lydia = LydiaAI(api_key)
 
 # Create a new chat session (Like a conversation)
-session = lydia.create_session()
+session = lydia.create_session(language="en") # Optional: langiage parameter, defaults to "en"
 print("Session ID: {0}".format(session.id))
 print("Session Available: {0}".format(str(session.available)))
 print("Session Language: {0}".format(str(session.language)))
-print("Session Expires: {0}".format(str(session.expires)))
+print("Session Expires: {0}".format(str(datetime.fromtimestamp(session.expires))))
 
 # Talk to the bot!
 while True:
