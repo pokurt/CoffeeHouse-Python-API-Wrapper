@@ -43,16 +43,13 @@ class API(object):
         """
         if access_key:
             payload["access_key"] = self.access_key
-        try:
-            response = requests.post(
-                "{}/{}".format(
-                    self.endpoint,
-                    path
-                ),
-                payload
-            )
-        except requests.exceptions.ConnectionError:
-            raise CoffeeHouseError(-1, None, None)
+        response = requests.post(
+            "{}/{}".format(
+                self.endpoint,
+                path
+            ),
+            payload
+        )
         request_id = None
         if "x-request-id" in response.headers:
             request_id = response.headers["x-request-id"]
