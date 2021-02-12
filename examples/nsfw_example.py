@@ -1,13 +1,18 @@
 from coffeehouse import NsfwClassifier
 
-# Create the CoffeeHouse API instance
-api_key = input("API Key: ")
+# Defining the API Key of the user
+api_key = input('API Key: ')
 
 # Create Classifier instance
 classifier = NsfwClassifier(api_key)
 
 # Reading the Image file and sending it through the API
-with open("/home/poki/Desktop/penis_dont_look.png", "rb") as f:
-    result = classifier.classify(f.read())
+with open('path/to/image.jpg', 'rb') as f:
+    result = classifier.classify(f.read()).nsfw_classification
 
-print(result.nsfw_classification)
+# Output
+print('Content Hash: {}'.format(str(result.content_hash)))
+print('Content Type: {}'.format(str(result.content_type)))
+print('Safe Prediction: {}'.format(str(result.safe_prediction)))
+print('Unsafe Prediction: {}'.format(str(result.unsafe_prediction)))
+print('is NSFW: {}'.format(str(result.is_nsfw)))

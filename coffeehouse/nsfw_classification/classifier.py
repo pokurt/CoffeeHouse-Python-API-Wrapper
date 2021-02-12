@@ -4,7 +4,11 @@ __all__ = ["Classifier", "NSFW_Classifier"]
 
 
 class NSFW_Classifier:
-    def __init__(self, data, client):
+    def __init__(
+        self,
+        data,
+        client
+    ):
         """
         NSFW Classifier Object
         """

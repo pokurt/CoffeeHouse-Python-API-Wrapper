@@ -1,7 +1,7 @@
 import json
 
 
-__all__ = ["CoffeeHouseError"]
+__all__ = ['CoffeeHouseError']
 
 
 class CoffeeHouseError(Exception):
@@ -24,9 +24,9 @@ class CoffeeHouseError(Exception):
         self.type = None
         # This part can be improved
         if content is not None:
-            self.message = content["error"]["message"]
-            self.error_code = content["error"]["error_code"]
-            self.type = content["error"]["type"]
+            self.message = content['error']['message']
+            self.error_code = content['error']['error_code']
+            self.type = content['error']['type']
         super().__init__(self.message or content)
 
     @staticmethod
@@ -45,13 +45,14 @@ class CoffeeHouseError(Exception):
             raise CoffeeHouseError(status_code, None, request_id, response)
 
         # Parse the response
-        if content["success"] is False:
+        if content['success'] is False:
             # Check if the type is available
-            if "error" in content and "type" in content["error"]:
+            if 'error' in content and 'type' in content['error']:
                 # COA Exception handler
                 raise _mapping.get(
-                    content["error"]["error_code"],
-                    CoffeeHouseError)(status_code, content, request_id, response)
+                    content['error']['error_code'],
+                    CoffeeHouseError,
+                )(status_code, content, request_id, response)
             # If detecting the type fails, it's a generic error
             raise CoffeeHouseError(status_code, content, request_id, response)
         return content
@@ -59,19 +60,21 @@ class CoffeeHouseError(Exception):
 
 class InternalServerError(CoffeeHouseError):
     """
-    An unexpected internal server error, this incident should be reported to support
+    An unexpected internal server error,
+    this incident should be reported to support
     """
     pass
 
 
 class ServiceError(CoffeeHouseError):
     """
-    This error can be a generic error, see the error message for more details
+    This error can be a generic error,
+    see the error message for more details
     """
     pass
 
 
 _mapping = {
     -1: InternalServerError,
-    0: ServiceError
+    0: ServiceError,
 }

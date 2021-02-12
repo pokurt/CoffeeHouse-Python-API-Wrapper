@@ -1,11 +1,12 @@
-from .exception import CoffeeHouseError
 import requests
 
+from .exception import CoffeeHouseError
 
-__all__ = ["API"]
+
+__all__ = ['API']
 
 
-class API(object):
+class API:
     """
     Base class for all CoffeeHouse services.
     It can be instantiated by itself as a holder for the API key,
@@ -15,8 +16,10 @@ class API(object):
     :param endpoint: Base URL for all requests, without the trailing slash
     """
 
-    def __init__(self, access_key,
-                 endpoint="https://api.intellivoid.net/coffeehouse"):
+    def __init__(
+        self, access_key,
+        endpoint='https://api.intellivoid.net/coffeehouse',
+    ):
         """
         Public base constructor for CoffeeHouse API
         It can be instantiated by itself as a holder for the API key,
@@ -42,24 +45,24 @@ class API(object):
         :rtype: dict
         """
         if access_key:
-            payload["access_key"] = self.access_key
+            payload['access_key'] = self.access_key
         response = requests.post(
-            "{}/{}".format(
+            '{}/{}'.format(
                 self.endpoint,
-                path
+                path,
             ),
-            payload
+            payload,
         )
         request_id = None
-        if "x-request-id" in response.headers:
-            request_id = response.headers["x-request-id"]
+        if 'x-request-id' in response.headers:
+            request_id = response.headers['x-request-id']
         result = CoffeeHouseError.parse_and_raise(
             response.status_code,
             response.text,
-            request_id
+            request_id,
         )
-        if "payload" in result:
+        if 'payload' in result:
             # V1 API
-            return result["payload"]
+            return result['payload']
         # V2 API
-        return result["results"]
+        return result['results']
