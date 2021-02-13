@@ -1,9 +1,10 @@
-from .classifier import NSFW_Classifier
-from ..api import API
 import base64
 
+from ..api import API
+from .classifier import NSFW_Classifier
 
-__all__ = ["NsfwClassifier"]
+
+__all__ = ['NsfwClassifier']
 
 
 class NsfwClassifier(API):
@@ -29,8 +30,8 @@ class NsfwClassifier(API):
 
         return NSFW_Classifier(
             self._send(
-                "v1/image/nsfw_classification",
-                image=base64.b64encode(image)
+                'v1/image/nsfw_classification',
+                image=base64.b64encode(image),
             ),
-            self
+            self,
         )

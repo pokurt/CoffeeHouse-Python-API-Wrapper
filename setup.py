@@ -13,6 +13,7 @@ setup(
         'coffeehouse',
         'coffeehouse.lydia',
         'coffeehouse.nsfw_classification',
+        'coffeehouse.nlp',
     ],
     package_dir={
         'coffeehouse': 'coffeehouse',
