@@ -1,22 +1,27 @@
 from setuptools import setup
+from coffeehouse import __version__, __author__
 
-with open("README.md", "r") as file:
+with open('README.md') as file:
     long_description = file.read()
 
 setup(
     name='coffeehouse',
-    version='2.2.4',
+    version=__version__,
     description='Official CoffeeHouse API Wrapper for Python',
     long_description=long_description,
-    long_description_content_type="text/markdown",
-    packages=['coffeehouse', 'coffeehouse.lydia'],
+    long_description_content_type='text/markdown',
+    packages=[
+        'coffeehouse',
+        'coffeehouse.lydia',
+        'coffeehouse.nsfw_classification',
+    ],
     package_dir={
-        'coffeehouse': 'coffeehouse'
+        'coffeehouse': 'coffeehouse',
     },
-    author='Intellivoid Technologies',
+    author=__author__,
     author_email='netkas@intellivoid.net',
     url='https://coffeehouse.intellivoid.net/',
     install_requires=[
-        'requests>=2.3.0'
-    ]
+        'requests>=2.3.0',
+    ],
 )

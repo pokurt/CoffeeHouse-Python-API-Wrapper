@@ -1,78 +1,82 @@
 import json
 
 
-__all__ = ["CoffeeHouseError"]
+__all__ = ['CoffeeHouseError']
 
 
 class CoffeeHouseError(Exception):
-    """
-    Exception raised by API errors.
-    The exception message is set to the server's response.
 
-    :param status_code: Status code returned by the server
-    :type status_code: int
-    :param message: Response content returned by the server
-    :type message: str
-    :param request_id: The request ID returned by the server
-    :type request_id: str
-    """
+    def __init__(self, status_code, content, request_id, response):
+        """
+        CoffeeHouseError Public Constructor
+        :param status_code:
+        :param content:
+        :param request_id:
+        :param response:
+        """
 
-    def __init__(self, status_code, content, request_id):
         self.status_code = status_code
         self.content = content
+        self.response = response
         self.request_id = request_id
-        self.message = content.get("message", None) if content else "Unknown"
+        self.message = None
+        self.error_code = None
+        self.type = None
+        # This part can be improved
+        if content is not None:
+            self.message = content['error']['message']
+            self.error_code = content['error']['error_code']
+            self.type = content['error']['type']
         super().__init__(self.message or content)
 
     @staticmethod
-    def parse_and_raise(status_code, content, request_id):
+    def parse_and_raise(status_code, response, request_id):
         """
-        Raise an exception if applicable, otherwise return the
-        response of the method
-
-        :param status_code: Status code returned by the server
-        :type status_code: int
-        :param content: Response content returned by the server
-        :type content: str
-        :param request_id: The request ID returned by the server
-        :type request_id: str
-        :rtype dict
+        Parses the response and detects the error type
+        :param status_code:
+        :param response:
+        :param request_id:
+        :return:
         """
 
         try:
-            response = json.loads(content)
+            content = json.loads(response)
         except json.decoder.JSONDecodeError:
-            raise CoffeeHouseError(status_code, None, request_id)
-        if status_code != 200:
-            raise _mapping.get(status_code,
-                               CoffeeHouseError)(status_code, response, request_id)
-        return response
+            raise CoffeeHouseError(status_code, None, request_id, response)
+
+        # Parse the response
+        if content['success'] is False:
+            # Check if the type is available
+            if 'error' in content and 'type' in content['error']:
+                # COA Exception handler
+                raise _mapping.get(
+                    content['error']['error_code'],
+                    CoffeeHouseError,
+                )(status_code, content, request_id, response)
+            # If detecting the type fails, it's a generic error
+            raise CoffeeHouseError(status_code, content, request_id, response)
+        return content
 
 
-class ApiSuspendedError(CoffeeHouseError):
+class InternalServerError(CoffeeHouseError):
+    """
+    An unexpected internal server error,
+    this incident should be reported to support
+    """
     pass
 
 
-class InvalidApiKeyError(CoffeeHouseError):
+class ServiceError(CoffeeHouseError):
+    """
+    This error can be a generic error,
+    see the error message for more details
+    """
     pass
 
-
-class AIError(CoffeeHouseError):
+class EmptyOutputRequest(Exception):
     pass
-
-
-class SessionInvalidError(CoffeeHouseError):
-    pass
-
-
-class SessionNotFoundError(CoffeeHouseError):
-    pass
-
 
 _mapping = {
-    400: SessionInvalidError,
-    401: InvalidApiKeyError,
-    403: ApiSuspendedError,
-    404: SessionNotFoundError,
-    503: AIError
+    -1: InternalServerError,
+    0: ServiceError,
 }
