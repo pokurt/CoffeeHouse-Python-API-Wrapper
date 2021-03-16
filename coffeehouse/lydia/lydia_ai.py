@@ -50,6 +50,25 @@ class LydiaAI(API):
                 session_id=session_id,
             ), self,
         )
+        
+        
+    def get_session_attributes(self, session_id):
+        """
+        Gets an existing session's attributes with LydiaSession
+
+        :type session_id: int
+        :param session_id: The ID of the session to retrieve
+        :raises: CoffeeHouseError
+        :returns: Session Attributes
+        :rtype: LydiaSession
+        """
+        return LydiaSession(
+            self._send(
+                'v1/lydia/session/attributes',
+                session_id=session_id,
+            ), self,
+        )
+    
 
     def think_thought(self, session_id, text):
         """
