@@ -1,8 +1,8 @@
-from .session import LydiaSession
 from ..api import API
+from .session import LydiaSession
 
 
-__all__ = ["LydiaAI"]
+__all__ = ['LydiaAI']
 
 
 class LydiaAI(API):
@@ -15,7 +15,7 @@ class LydiaAI(API):
 
         super().__init__(*args, **kwargs)
 
-    def create_session(self, language="en"):
+    def create_session(self, language='en'):
         """
         Creates a new LydiaSession with the AI
 
@@ -26,8 +26,12 @@ class LydiaAI(API):
         :rtype: LydiaSession
         """
 
-        return LydiaSession(self._send("v1/lydia/session/create",
-                                       target_language=language), self)
+        return LydiaSession(
+            self._send(
+                'v1/lydia/session/create',
+                target_language=language,
+            ), self,
+        )
 
     def get_session(self, session_id):
         """
@@ -40,8 +44,31 @@ class LydiaAI(API):
         :rtype: LydiaSession
         """
 
-        return LydiaSession(self._send("v1/lydia/session/get",
-                                       session_id=session_id), self)
+        return LydiaSession(
+            self._send(
+                'v1/lydia/session/get',
+                session_id=session_id,
+            ), self,
+        )
+        
+        
+    def get_session_attributes(self, session_id):
+        """
+        Gets an existing session's attributes with LydiaSession
+
+        :type session_id: int
+        :param session_id: The ID of the session to retrieve
+        :raises: CoffeeHouseError
+        :returns: Session Attributes
+        :rtype: LydiaSession
+        """
+        return LydiaSession(
+            self._send(
+                'v1/lydia/session/attributes',
+                session_id=session_id,
+            ), self,
+        )
+    
 
     def think_thought(self, session_id, text):
         """
@@ -55,6 +82,8 @@ class LydiaAI(API):
         :rtype: str
         """
 
-        return self._send("v1/lydia/session/think",
-                          session_id=session_id,
-                          input=text)["output"]
+        return self._send(
+            'v1/lydia/session/think',
+            session_id=session_id,
+            input=text,
+        )['output']

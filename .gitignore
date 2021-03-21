@@ -8,3 +8,4 @@ MANIFEST
 docs/build
 dist/
 build/
+proj/*
