@@ -20,7 +20,7 @@ __all__ = (
     + nsfw_classification.__all__
 )
 
-__version__ = '2.2.5'
+__version__ = '2.2.6'
 __author__ = 'Intellivoid Technologies'
 __source__ = 'https://github.com/intellivoid/CoffeeHouse-Python-API-Wrapper'
 __copyright__ = 'Copyright (c) 2017-2021 ' + __author__
